@@ -47,9 +47,9 @@ function Home() {
     }
   };
 
- const filteredProducts = products.filter(product=>
-  product.name.toLowerCase().includes(searchQuery.toLowerCase())
- );
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
@@ -58,15 +58,15 @@ function Home() {
           Discover Our Collection
         </h1>
 
-           <div className='mb-8'>
-            <input
+        <div className='mb-8'>
+          <input
             type='text'
             placeholder='Search Products'
             value={searchQuery}
-            onChange={(e)=>setSearchQuery(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
             className='w-full p-3 border border-gray-300 rounded-lg'
-            ></input>
-           </div>
+          ></input>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
           {filteredProducts.map((product) => (
@@ -80,9 +80,10 @@ function Home() {
                   src={product.image}
                   alt={product.name}
                 />
-                <div className="absolute top-0 right-0 bg-indigo-600 text-white px-3 py-1 m-2 rounded-full text-sm font-semibold">
+                {/* Remove the New badge */}
+                {/* <div className="absolute top-0 right-0 bg-indigo-600 text-white px-3 py-1 m-2 rounded-full text-sm font-semibold">
                   New
-                </div>
+                </div> */}
               </div>
               <div className="p-6">
                 <h2 className="text-xl font-bold text-gray-800 mb-2">
@@ -105,7 +106,7 @@ function Home() {
                   </svg>
                   Update
                 </button>
-                <button 
+                <button
                   className="flex items-center text-red-600 hover:text-red-800 transition duration-300"
                   onClick={() => removeItem(product.id)}
                 >

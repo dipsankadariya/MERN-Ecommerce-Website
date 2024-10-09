@@ -28,10 +28,33 @@ function Navigation() {
                 </Link>
                 
               </li>
+
+              <li>
+                <Link
+                  to="/contacts"
+                  className="text-indigo-600 hover:text-indigo-800 text-lg font-semibold transition duration-300"
+                >
+                  Contacts
+                </Link>
+                
+              </li>
+
+              <li>
+                <Link
+                  to="/about"
+                  className="text-indigo-600 hover:text-indigo-800 text-lg font-semibold transition duration-300"
+                >
+                  About Us
+                </Link>
+                
+              </li>
+
+              
+
               <li>
                 <Link to="/addproduct">
                   <button className="bg-[#14b8a6] text-white py-2 px-4 rounded transition duration-300 hover:bg-[#3A80D2]">
-                    Add New Product
+                    Add  New Product
                   </button>
                 </Link>
               </li>
