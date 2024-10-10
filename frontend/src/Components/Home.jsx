@@ -91,9 +91,9 @@ function Home() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-blue-200 py-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <h1 className="text-5xl font-extrabold text-center text-indigo-900 mb-12">
+        <h1 className="text-5xl font-extrabold text-center text-gray-800 mb-12">
           Discover Our Collection
         </h1>
 
@@ -103,7 +103,7 @@ function Home() {
             placeholder='Search Products'
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className='w-full p-3 border border-gray-300 rounded-lg'
+            className='w-full p-4 border border-gray-300 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500'
           />
         </div>
 
@@ -115,7 +115,7 @@ function Home() {
             >
               <div className="relative">
                 <img
-                  className="w-full h-64 object-cover"
+                  className="w-full h-64 object-cover transform transition-transform duration-500 hover:scale-105"
                   src={product.image}
                   alt={product.name}
                 />
@@ -124,19 +124,19 @@ function Home() {
                 <h2 className="text-xl font-bold text-gray-800 mb-2">
                   {product.name}
                 </h2>
-                <p className="text-2xl font-extrabold text-indigo-600 mb-4">
+                <p className="text-2xl font-extrabold text-blue-600 mb-4">
                   ${product.price.toFixed(2)}
                 </p>
-                <button className="w-full bg-indigo-600 text-white text-lg font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 hover:bg-indigo-700 flex items-center justify-center">
+                <button className="w-full bg-blue-600 text-white text-lg font-semibold py-2 px-4 rounded-full shadow-md transition duration-300 hover:bg-blue-700 flex items-center justify-center">
                   <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                   </svg>
                   Add to Cart
                 </button>
               </div>
-              <div className="bg-gray-100 px-6 py-4 flex justify-between">
+              <div className="bg-gray-200 px-6 py-4 flex justify-between">
                 <button
-                  className="flex items-center text-indigo-600 hover:text-indigo-800 transition duration-300"
+                  className="flex items-center text-blue-600 hover:text-blue-800 transition duration-300"
                   onClick={() => handleEditClick(product)}
                 >
                   <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -172,7 +172,7 @@ function Home() {
                     name="name"
                     value={formData.name}
                     onChange={handleFormChange}
-                    className="w-full p-2 border border-gray-300 rounded"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   />
                 </div>
@@ -184,7 +184,7 @@ function Home() {
                     name="price"
                     value={formData.price}
                     onChange={handleFormChange}
-                    className="w-full p-2 border border-gray-300 rounded"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   />
                 </div>
@@ -196,15 +196,22 @@ function Home() {
                     name="image"
                     value={formData.image}
                     onChange={handleFormChange}
-                    className="w-full p-2 border border-gray-300 rounded"
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                     required
                   />
                 </div>
                 <div className="flex justify-between">
-                  <button type="button" className="bg-gray-300 text-gray-700 py-2 px-4 rounded" onClick={() => setEditProduct(null)}>
+                  <button
+                    type="button"
+                    onClick={() => setEditProduct(null)}
+                    className="bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-md transition duration-300 hover:bg-gray-400"
+                  >
                     Cancel
                   </button>
-                  <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded">
+                  <button
+                    type="submit"
+                    className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300 hover:bg-blue-700"
+                  >
                     Update
                   </button>
                 </div>
