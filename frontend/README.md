@@ -1,6 +1,6 @@
 # E-commerce Website
 
-This e-commerce website offers a comprehensive shopping experience with a modern design and intuitive functionality.
+A simple E-commerce website made  using Mern stack.
 
 ## Features
 
