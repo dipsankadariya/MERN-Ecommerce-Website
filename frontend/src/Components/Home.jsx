@@ -10,6 +10,8 @@ const defaultProducts = [
 function Home() {
   const [products, setProducts] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [editProduct, setEditProduct] = useState(null);
+  const [formData, setFormData] = useState({ name: '', price: '', image: '' });
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -47,7 +49,44 @@ function Home() {
     }
   };
 
-  const filteredProducts = products.filter(product =>
+  const handleEditClick = (product) => {
+    setEditProduct(product);
+    setFormData({ name: product.name, price: product.price, image: product.image });
+  };
+
+  const handleFormChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({ ...prevData, [name]: value }));
+  };
+
+  const handleUpdateSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`/api/products/${editProduct.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to update the product');
+      }
+
+      const updatedProduct = await response.json();
+      setProducts((prevProducts) =>
+        prevProducts.map((product) => (product.id === updatedProduct.data._id ? updatedProduct.data : product))
+      );
+
+      setEditProduct(null);
+      setFormData({ name: '', price: '', image: '' });
+    } catch (error) {
+      console.error('Error updating product:', error);
+    }
+  };
+
+  const filteredProducts = products.filter((product) =>
     product.name.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -65,7 +104,7 @@ function Home() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className='w-full p-3 border border-gray-300 rounded-lg'
-          ></input>
+          />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
@@ -80,10 +119,6 @@ function Home() {
                   src={product.image}
                   alt={product.name}
                 />
-                {/* Remove the New badge */}
-                {/* <div className="absolute top-0 right-0 bg-indigo-600 text-white px-3 py-1 m-2 rounded-full text-sm font-semibold">
-                  New
-                </div> */}
               </div>
               <div className="p-6">
                 <h2 className="text-xl font-bold text-gray-800 mb-2">
@@ -100,7 +135,10 @@ function Home() {
                 </button>
               </div>
               <div className="bg-gray-100 px-6 py-4 flex justify-between">
-                <button className="flex items-center text-indigo-600 hover:text-indigo-800 transition duration-300">
+                <button
+                  className="flex items-center text-indigo-600 hover:text-indigo-800 transition duration-300"
+                  onClick={() => handleEditClick(product)}
+                >
                   <svg className="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
                   </svg>
@@ -119,6 +157,61 @@ function Home() {
             </div>
           ))}
         </div>
+
+        {/* Update Product Form Modal */}
+        {editProduct && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-8 rounded-lg shadow-lg max-w-md mx-auto">
+              <h2 className="text-2xl font-bold mb-4">Update Product</h2>
+              <form onSubmit={handleUpdateSubmit}>
+                <div className="mb-4">
+                  <label className="block text-gray-700 mb-1" htmlFor="name">Product Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleFormChange}
+                    className="w-full p-2 border border-gray-300 rounded"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700 mb-1" htmlFor="price">Price</label>
+                  <input
+                    type="number"
+                    id="price"
+                    name="price"
+                    value={formData.price}
+                    onChange={handleFormChange}
+                    className="w-full p-2 border border-gray-300 rounded"
+                    required
+                  />
+                </div>
+                <div className="mb-4">
+                  <label className="block text-gray-700 mb-1" htmlFor="image">Image URL</label>
+                  <input
+                    type="text"
+                    id="image"
+                    name="image"
+                    value={formData.image}
+                    onChange={handleFormChange}
+                    className="w-full p-2 border border-gray-300 rounded"
+                    required
+                  />
+                </div>
+                <div className="flex justify-between">
+                  <button type="button" className="bg-gray-300 text-gray-700 py-2 px-4 rounded" onClick={() => setEditProduct(null)}>
+                    Cancel
+                  </button>
+                  <button type="submit" className="bg-blue-600 text-white py-2 px-4 rounded">
+                    Update
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
