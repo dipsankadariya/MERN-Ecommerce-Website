@@ -16,7 +16,7 @@ function Home() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch('/api/products');
+        const response = await fetch('https://mern-ecommerce-7fft.onrender.com/api/products');
         const data = await response.json();
         const fetchedProducts = data.data.length > 0 ? data.data : defaultProducts;
         const productsWithIds = fetchedProducts.map((product, index) => ({
@@ -35,7 +35,7 @@ function Home() {
 
   const removeItem = async (id) => {
     try {
-      const response = await fetch(`/api/products/${id}`, {
+      const response = await fetch(`https://mern-ecommerce-7fft.onrender.com/api/products/${id}`, {
         method: 'DELETE',
       });
 
@@ -62,7 +62,7 @@ function Home() {
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`/api/products/${editProduct.id}`, {
+      const response = await fetch(`https://mern-ecommerce-7fft.onrender.com/api/products/${editProduct.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -172,8 +172,7 @@ function Home() {
                     name="name"
                     value={formData.name}
                     onChange={handleFormChange}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
+                    className="w-full border border-gray-300 rounded-lg p-2"
                   />
                 </div>
                 <div className="mb-4">
@@ -184,8 +183,7 @@ function Home() {
                     name="price"
                     value={formData.price}
                     onChange={handleFormChange}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
+                    className="w-full border border-gray-300 rounded-lg p-2"
                   />
                 </div>
                 <div className="mb-4">
@@ -196,25 +194,17 @@ function Home() {
                     name="image"
                     value={formData.image}
                     onChange={handleFormChange}
-                    className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    required
+                    className="w-full border border-gray-300 rounded-lg p-2"
                   />
                 </div>
-                <div className="flex justify-between">
-                  <button
-                    type="button"
-                    onClick={() => setEditProduct(null)}
-                    className="bg-gray-300 text-gray-800 font-semibold py-2 px-4 rounded-md transition duration-300 hover:bg-gray-400"
-                  >
-                    Cancel
-                  </button>
-                  <button
-                    type="submit"
-                    className="bg-blue-600 text-white font-semibold py-2 px-4 rounded-md transition duration-300 hover:bg-blue-700"
-                  >
-                    Update
-                  </button>
-                </div>
+                <button type="submit" className="w-full bg-blue-600 text-white py-2 rounded-lg">Update Product</button>
+                <button
+                  type="button"
+                  onClick={() => setEditProduct(null)}
+                  className="mt-4 w-full text-center text-red-600"
+                >
+                  Cancel
+                </button>
               </form>
             </div>
           </div>

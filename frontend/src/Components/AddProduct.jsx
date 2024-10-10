@@ -20,7 +20,7 @@ function AddProduct() {
     };
 
     try {
-      const response = await fetch('/api/products/', {
+      const response = await fetch('https://your-render-api-url/api/products/', { // Replace with your Render API URL
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
