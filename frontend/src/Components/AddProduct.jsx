@@ -20,7 +20,7 @@ function AddProduct() {
     };
 
     try {
-      const response = await fetch('https://your-render-api-url/api/products/', { // Replace with your Render API URL
+      const response = await fetch('https://mern-ecommerce-7fft.onrender.com/api/products/', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

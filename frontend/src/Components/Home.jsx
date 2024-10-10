@@ -62,7 +62,7 @@ function Home() {
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`https://mern-ecommerce-7fft.onrender.com/api/products/${editProduct.id}`, {
+      const response = await fetch(`https://mern-ecommerce-7fft.onrender.com/${editProduct.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
